@@ -19,6 +19,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ default: '' })
+  avatar?: string;
+
   @OneToMany(() => Comment, (comment) => comment.user, { onDelete: 'CASCADE' })
   comments: Comment[];
 
