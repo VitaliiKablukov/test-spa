@@ -5,12 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as argon2 from 'argon2';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private readonly usersRepository: Repository<User>,
+    private readonly jwtService: JwtService,
   ) {}
   async create(createUserDto: CreateUserDto) {
     const existUser = await this.usersRepository.findOne({
@@ -22,13 +24,14 @@ export class UserService {
       password: await argon2.hash(createUserDto.password),
       avatar: createUserDto.avatar && '',
     });
+    const token = this.jwtService.sign(createUserDto.email);
 
-    return { user };
+    return { user, token };
   }
 
   async findOne(email: string) {
     const existUser = this.usersRepository.findOne({ where: { email } });
-    return '';
+    return existUser;
   }
   findOneById(id: number) {
     return `This action returns a #${id} user`;
