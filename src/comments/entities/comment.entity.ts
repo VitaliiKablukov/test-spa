@@ -1,34 +1,38 @@
-import { AnswersComment } from 'src/answers-comment/entities/answers-comment.entity';
-import { User } from 'src/user/entities/user.entity';
+import { AnswersComment } from 'src/answers-comment/entities/answers-comment.entity'
+import { Image } from 'src/images/entities/image.entity'
+import { User } from 'src/user/entities/user.entity'
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	OneToMany,
+	PrimaryGeneratedColumn,
+} from 'typeorm'
 
 @Entity()
 export class Comment {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number
 
-  @Column()
-  text: string;
-  @ManyToOne(() => User, (user) => user.comments)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+	@Column()
+	text: string
+	@ManyToOne(() => User, (user) => user.comments)
+	@JoinColumn({ name: 'user_id' })
+	user: User
+	@ManyToOne(() => Image, (image) => image.comments)
+	@JoinColumn({ name: 'image_id' })
+	image: Image
 
-  @OneToMany(() => AnswersComment, (answersComment) => answersComment.user, {
-    onDelete: 'CASCADE',
-  })
-  answerComments: AnswersComment[];
+	@OneToMany(() => AnswersComment, (answersComment) => answersComment.user, {
+		onDelete: 'CASCADE',
+	})
+	answerComments: AnswersComment[]
 
-  @CreateDateColumn()
-  createdAt: Date;
+	@CreateDateColumn()
+	createdAt: Date
 
-  @CreateDateColumn()
-  updatedAt: Date;
+	@CreateDateColumn()
+	updatedAt: Date
 }
