@@ -9,6 +9,7 @@ import { CommentsModule } from './comments/comments.module'
 import { AnswersCommentModule } from './answers-comment/answers-comment.module'
 import { AuthModule } from './auth/auth.module'
 import { ImagesModule } from './images/images.module'
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
 	imports: [
