@@ -18,9 +18,11 @@ export class Comment {
 
 	@Column()
 	text: string
+
 	@ManyToOne(() => User, (user) => user.comments)
 	@JoinColumn({ name: 'user_id' })
 	user: User
+
 	@ManyToOne(() => Image, (image) => image.comments)
 	@JoinColumn({ name: 'image_id' })
 	image: Image

@@ -1,3 +1,5 @@
 export class CreateCommentDto {
-  text: string;
+	text: string
+	imageId: number
+	userId: number
 }
