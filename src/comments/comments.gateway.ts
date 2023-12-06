@@ -20,10 +20,12 @@ export class CommentsGateway
 
 	@WebSocketServer() server: Server
 	@SubscribeMessage('createComment')
-	create(@MessageBody() createCommentDto: CreateCommentDto) {
-		const newComment = this.commentsService.create(createCommentDto)
-		this.server.emit('recComments', createCommentDto)
-		return newComment
+	async create(@MessageBody() createCommentDto: CreateCommentDto) {
+		const newComment = await this.commentsService.create(createCommentDto)
+		if (newComment) {
+			this.server.emit('clientComments', newComment)
+			return newComment
+		}
 	}
 
 	@SubscribeMessage('findAllComments')

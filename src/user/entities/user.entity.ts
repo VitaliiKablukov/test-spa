@@ -1,41 +1,44 @@
-import { AnswersComment } from 'src/answers-comment/entities/answers-comment.entity';
-import { Comment } from 'src/comments/entities/comment.entity';
+import { AnswersComment } from 'src/answers-comment/entities/answers-comment.entity'
+import { Comment } from 'src/comments/entities/comment.entity'
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+	Column,
+	CreateDateColumn,
+	Entity,
+	OneToMany,
+	PrimaryGeneratedColumn,
+} from 'typeorm'
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number
 
-  @Column()
-  email: string;
+	@Column()
+	email: string
 
-  @Column()
-  password: string;
+	@Column()
+	password: string
 
-  @Column({ default: '' })
-  avatar?: string;
+	@Column({ default: '' })
+	avatar?: string
 
-  @OneToMany(() => Comment, (comment) => comment.user, { onDelete: 'CASCADE' })
-  comments: Comment[];
+	@Column({ default: 'Anonymous' })
+	userName: string
 
-  @OneToMany(() => AnswersComment, (answerComments) => answerComments.user, {
-    onDelete: 'CASCADE',
-  })
-  answersComments: AnswersComment[];
+	@OneToMany(() => Comment, (comment) => comment.user, { onDelete: 'CASCADE' })
+	comments: Comment[]
 
-  @CreateDateColumn()
-  createdAt: Date;
+	@OneToMany(() => AnswersComment, (answerComments) => answerComments.user, {
+		onDelete: 'CASCADE',
+	})
+	answersComments: AnswersComment[]
 
-  @CreateDateColumn()
-  updatedAt: Date;
+	@CreateDateColumn()
+	createdAt: Date
 
-  @Column({ default: true })
-  isActive: boolean;
+	@CreateDateColumn()
+	updatedAt: Date
+
+	@Column({ default: true })
+	isActive: boolean
 }

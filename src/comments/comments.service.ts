@@ -4,20 +4,29 @@ import { UpdateCommentDto } from './dto/update-comment.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Comment } from './entities/comment.entity'
-
+import * as sanitizeHtml from 'sanitize-html'
+import { escape } from 'lodash'
 @Injectable()
 export class CommentsService {
 	constructor(
 		@InjectRepository(Comment)
 		private readonly commentRepository: Repository<Comment>,
 	) {}
-	create(createCommentDto: CreateCommentDto) {
+	async create(createCommentDto: CreateCommentDto) {
+		const sanitizedText = sanitizeHtml(createCommentDto.text, {
+			allowedTags: ['a', 'code', 'i', 'strong'],
+		})
 		const newComment = {
-			text: createCommentDto.text,
+			text: escape(sanitizedText),
 			user: { id: +createCommentDto.userId },
 			image: { id: +createCommentDto.imageId },
 		}
-		return this.commentRepository.save(newComment)
+		const comment = await this.commentRepository.save(newComment)
+
+		return this.commentRepository.findOne({
+			where: { id: comment.id },
+			relations: ['user'],
+		})
 	}
 
 	async findAll(imageId: number) {
@@ -27,15 +36,22 @@ export class CommentsService {
 
 		return comments
 	}
-	async findAllWithPagination(imageId: number, page: number, limit: number) {
-		const comments = await this.commentRepository.find({
+	async findAllWithPagination(
+		imageId: number,
+		page: number,
+		limit: number,
+		sortBy: string,
+		sortOrder: 'ASC' | 'DESC',
+	) {
+		const [comments, total] = await this.commentRepository.findAndCount({
 			where: { image: { id: imageId } },
-			order: { createdAt: 'DESC' },
 			take: limit,
 			skip: (page - 1) * limit,
+			order: { [sortBy]: sortOrder },
+			relations: ['user', 'image'],
 		})
 
-		return comments
+		return { comments, total }
 	}
 
 	findOne(id: number) {

@@ -25,14 +25,23 @@ export class CommentsController {
 		return this.commentsService.findAll(+id)
 	}
 
-	@Get('/allCommentsWithPagination/:id')
+	@Get('/allCommentsWithPagination/:imageId')
 	@UseGuards(JwtAuthGuard)
 	findAllWithPagination(
-		@Param('id') imageId: number,
-		@Query('page') page: number = 1,
-		@Query('limit') limit: number = 25,
+		@Param() param,
+		@Query('page') page: number,
+		@Query('limit') limit: number,
+		@Query('sortBy') sortBy: string,
+		@Query('sortOrder') sortOrder: 'ASK' | 'DESC',
 	) {
-		return this.commentsService.findAllWithPagination(+imageId, +page, +limit)
+		const { imageId } = param
+		return this.commentsService.findAllWithPagination(
+			+imageId,
+			+page,
+			+limit,
+			sortBy,
+			sortOrder,
+		)
 	}
 
 	@Patch(':id')
