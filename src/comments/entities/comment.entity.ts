@@ -19,6 +19,9 @@ export class Comment {
 	@Column()
 	text: string
 
+	@Column({ default: '' })
+	file?: string
+
 	@ManyToOne(() => User, (user) => user.comments)
 	@JoinColumn({ name: 'user_id' })
 	user: User

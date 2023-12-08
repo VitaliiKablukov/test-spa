@@ -4,14 +4,20 @@ import { AppService } from './app.service'
 import { UserModule } from './user/user.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { User } from './user/entities/user.entity'
 import { CommentsModule } from './comments/comments.module'
 import { AnswersCommentModule } from './answers-comment/answers-comment.module'
 import { AuthModule } from './auth/auth.module'
 import { ImagesModule } from './images/images.module'
 
+import { CloudinaryService } from './cloudinary/cloudinary.service'
+import cloudinaryConfig from './cloudinary/cloudinary.config'
+
 @Module({
 	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+			load: [cloudinaryConfig],
+		}),
 		ConfigModule.forRoot({ isGlobal: true }),
 		CommentsModule,
 		UserModule,
@@ -39,6 +45,6 @@ import { ImagesModule } from './images/images.module'
 		ImagesModule,
 	],
 	controllers: [AppController],
-	providers: [AppService],
+	providers: [AppService, CloudinaryService],
 })
 export class AppModule {}

@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common'
 import { CommentsService } from './comments.service'
 
-import { UpdateCommentDto } from './dto/update-comment.dto'
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 
 @Controller('comments')
@@ -31,8 +30,8 @@ export class CommentsController {
 		@Param() param,
 		@Query('page') page: number,
 		@Query('limit') limit: number,
-		@Query('sortBy') sortBy: string,
-		@Query('sortOrder') sortOrder: 'ASK' | 'DESC',
+		@Query('sortBy') sortBy: string = 'id',
+		@Query('sortOrder') sortOrder: 'ASC' | 'DESC' = 'DESC',
 	) {
 		const { imageId } = param
 		return this.commentsService.findAllWithPagination(
@@ -44,13 +43,13 @@ export class CommentsController {
 		)
 	}
 
-	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-		return this.commentsService.update(+id, updateCommentDto)
-	}
+	// @Patch(':id')
+	// update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
+	// 	return this.commentsService.update(+id, updateCommentDto)
+	// }
 
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.commentsService.remove(+id)
-	}
+	// @Delete(':id')
+	// remove(@Param('id') id: string) {
+	// 	return this.commentsService.remove(+id)
+	// }
 }

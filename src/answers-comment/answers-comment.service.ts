@@ -40,8 +40,8 @@ export class AnswersCommentService {
 		commentId: number,
 		page: number,
 		limit: number,
-		sortBy: string,
-		sortOrder: 'ASC' | 'DESC',
+		sortBy: string = 'id',
+		sortOrder: 'ASC' | 'DESC' = 'DESC',
 	) {
 		const [comments, total] = await this.answersCommentRepository.findAndCount({
 			where: { comment: { id: commentId } },

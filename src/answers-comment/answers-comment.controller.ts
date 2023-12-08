@@ -11,7 +11,6 @@ import {
 
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
 import { AnswersCommentService } from './answers-comment.service'
-import { UpdateAnswersCommentDto } from './dto/update-answers-comment.dto'
 
 @Controller('answers-comments')
 export class AnswersCommentController {
@@ -31,8 +30,8 @@ export class AnswersCommentController {
 		@Param('id') imageId: number,
 		@Query('page') page: number = 1,
 		@Query('limit') limit: number = 25,
-		@Query('sortBy') sortBy: string,
-		@Query('sortOrder') sortOrder: 'ASK' | 'DESC',
+		@Query('sortBy') sortBy: string = 'id',
+		@Query('sortOrder') sortOrder: 'ASC' | 'DESC' = 'DESC',
 	) {
 		return this.answersCommentsService.findAllWithPagination(
 			+imageId,
@@ -43,16 +42,16 @@ export class AnswersCommentController {
 		)
 	}
 
-	@Patch(':id')
-	update(
-		@Param('id') id: string,
-		@Body() updateAnswersCommentDto: UpdateAnswersCommentDto,
-	) {
-		return this.answersCommentsService.update(+id, updateAnswersCommentDto)
-	}
+	// @Patch(':id')
+	// update(
+	// 	@Param('id') id: string,
+	// 	@Body() updateAnswersCommentDto: UpdateAnswersCommentDto,
+	// ): string {
+	// 	return this.answersCommentsService.update(+id, updateAnswersCommentDto)
+	// }
 
-	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.answersCommentsService.remove(+id)
-	}
+	// @Delete(':id')
+	// remove(@Param('id') id: string) {
+	// 	return this.answersCommentsService.remove(+id)
+	// }
 }
