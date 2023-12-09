@@ -15,7 +15,7 @@ export class AnswersComment {
 	id: number
 	@Column()
 	text: string
-	@Column()
+	@Column({ default: '' })
 	file?: string
 
 	@ManyToOne(() => User, (user) => user.answersComments)

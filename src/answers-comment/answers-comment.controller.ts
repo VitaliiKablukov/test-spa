@@ -19,8 +19,6 @@ export class AnswersCommentController {
 	@Get(':id')
 	@UseGuards(JwtAuthGuard)
 	findAll(@Param('id') id: string) {
-		console.log(id)
-
 		return this.answersCommentsService.findAll(+id)
 	}
 

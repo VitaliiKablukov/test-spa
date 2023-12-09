@@ -18,10 +18,10 @@ export class CommentsController {
 
 	@Get(':id')
 	@UseGuards(JwtAuthGuard)
-	findAll(@Param('id') id: string) {
+	findOne(@Param('id') id: string) {
 		console.log(id)
 
-		return this.commentsService.findAll(+id)
+		return this.commentsService.findOne(+id)
 	}
 
 	@Get('/allCommentsWithPagination/:imageId')

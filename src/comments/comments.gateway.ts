@@ -28,25 +28,25 @@ export class CommentsGateway
 		}
 	}
 
-	@SubscribeMessage('findAllComments')
-	findAllById() {
-		return null
-	}
+	// @SubscribeMessage('findAllComments')
+	// findAllById() {
+	// 	return null
+	// }
 
-	@SubscribeMessage('findOneComment')
-	findOne(@MessageBody() id: number) {
-		return this.commentsService.findOne(id)
-	}
+	// @SubscribeMessage('findOneComment')
+	// findOne(@MessageBody() id: number) {
+	// 	return this.commentsService.findOne(id)
+	// }
 
-	@SubscribeMessage('updateComment')
-	update(@MessageBody() updateCommentDto: UpdateCommentDto) {
-		return this.commentsService.update(updateCommentDto.id, updateCommentDto)
-	}
+	// @SubscribeMessage('updateComment')
+	// update(@MessageBody() updateCommentDto: UpdateCommentDto) {
+	// 	return this.commentsService.update(updateCommentDto.id, updateCommentDto)
+	// }
 
-	@SubscribeMessage('removeComment')
-	remove(@MessageBody() id: number) {
-		return this.commentsService.remove(id)
-	}
+	// @SubscribeMessage('removeComment')
+	// remove(@MessageBody() id: number) {
+	// 	return this.commentsService.remove(id)
+	// }
 	afterInit() {}
 	handleConnection(client: Socket) {
 		console.log(`Connected: ${client.id}`)

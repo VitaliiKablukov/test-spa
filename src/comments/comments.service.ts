@@ -19,7 +19,6 @@ export class CommentsService {
 		const sanitizedText = sanitizeHtml(createCommentDto.text, {
 			allowedTags: ['a', 'code', 'i', 'strong'],
 		})
-		console.log(createCommentDto)
 
 		if (createCommentDto.file) {
 			try {
@@ -47,9 +46,10 @@ export class CommentsService {
 		})
 	}
 
-	async findAll(imageId: number) {
-		const comments = await this.commentRepository.find({
-			where: { image: { id: imageId } },
+	async findOne(commentId: number) {
+		const comments = await this.commentRepository.findOne({
+			where: { id: commentId },
+			relations: ['user', 'image'],
 		})
 
 		return comments
@@ -72,15 +72,15 @@ export class CommentsService {
 		return { comments, total }
 	}
 
-	findOne(id: number) {
-		return `This action returns a #${id} comment`
-	}
+	// findOne(id: number) {
+	// 	return `This action returns a #${id} comment`
+	// }
 
-	update(id: number, updateCommentDto: UpdateCommentDto) {
-		return `This action updates a #${id} comment`
-	}
+	// update(id: number, updateCommentDto: UpdateCommentDto) {
+	// 	return `This action updates a #${id} comment`
+	// }
 
-	remove(id: number) {
-		return `This action removes a #${id} comment`
-	}
+	// remove(id: number) {
+	// 	return `This action removes a #${id} comment`
+	// }
 }

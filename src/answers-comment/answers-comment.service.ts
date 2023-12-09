@@ -6,20 +6,33 @@ import { AnswersComment } from './entities/answers-comment.entity'
 import { Repository } from 'typeorm'
 import * as sanitizeHtml from 'sanitize-html'
 import { escape } from 'lodash'
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service'
 @Injectable()
 export class AnswersCommentService {
 	constructor(
 		@InjectRepository(AnswersComment)
 		private readonly answersCommentRepository: Repository<AnswersComment>,
+		private readonly cloudinaryService: CloudinaryService,
 	) {}
 	async create(createAnswersCommentDto: CreateAnswersCommentDto) {
 		const sanitizedText = sanitizeHtml(createAnswersCommentDto.text, {
 			allowedTags: ['a', 'code', 'i', 'strong'],
 		})
+		if (createAnswersCommentDto.file) {
+			try {
+				const previewNew =
+					'data:image/png;base64,' + createAnswersCommentDto.file.toString()
+				const cloudinaryImg = await this.cloudinaryService.upload(previewNew)
+				createAnswersCommentDto.file = cloudinaryImg.url
+			} catch (error) {
+				console.log(error.message)
+			}
+		}
 		const newComment = {
 			text: escape(sanitizedText),
 			user: { id: +createAnswersCommentDto.userId },
 			comment: { id: +createAnswersCommentDto.commentId },
+			file: createAnswersCommentDto.file.toString(),
 		}
 		const comment = await this.answersCommentRepository.save(newComment)
 

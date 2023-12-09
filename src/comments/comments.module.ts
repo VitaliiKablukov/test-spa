@@ -10,18 +10,7 @@ import { CommentsController } from './comments.controller'
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service'
 
 @Module({
-	imports: [
-		TypeOrmModule.forFeature([Comment]),
-		// PassportModule,
-		// JwtModule.registerAsync({
-		// 	imports: [ConfigModule],
-		// 	useFactory: (configService: ConfigService) => ({
-		// 		secret: configService.get('JWT_SECRET'),
-		// 		signOptions: { expiresIn: '30d' },
-		// 	}),
-		// 	inject: [ConfigService],
-		// }),
-	],
+	imports: [TypeOrmModule.forFeature([Comment])],
 
 	providers: [CommentsGateway, CommentsService, CloudinaryService],
 	exports: [TypeOrmModule],

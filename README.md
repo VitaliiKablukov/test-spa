@@ -1,36 +1,19 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Name
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Spa-test
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Проєкт для перегляду різних картинок та їх обговорення в чаті в реальному часі
+
+## Вимоги
+
+PostgreSQL,Redis,Node.js,npm,docker,docker-compose.
 
 ## Installation
 
-```bash
-$ npm install
-```
+````bash
+$ npm install`
 
 ## Running the app
 
@@ -43,7 +26,7 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
-```
+````
 
 ## Test
 
@@ -58,16 +41,56 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Vitalii Kablukov](vetal.kablukov98@gmail.com)
 
-## License
+## Приклади використання
 
-Nest is [MIT licensed](LICENSE).
+Приклади та інструкції
+
+##1 POST:http://localhost:3000/api/user
+Body(json){
+"email": "example@gmail.com",
+"password":"111111"
+}
+result:{
+"user": {
+"email": "example@gmail.com",
+"password": "$argon2id$v=19$m=65536,t=3,p=4$KMUZLM9wwttOpXNjtrXGDg$ZD9WK4u1GeyvRbCrqu96JBuhdeUA35mtZsVXdxafm1U",
+"avatar": "",
+"userName": "Anonymous",
+"id": 17,
+"createdAt": "2023-12-08T22:58:52.002Z",
+"updatedAt": "2023-12-08T22:58:52.002Z",
+"isActive": true
+},
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAZ21haWwuY29tIiwiaWF0IjoxNzAyMDc2MzMyLCJleHAiOjE3MDQ2NjgzMzJ9.rOtUG8IY57DxWnIEDW4mPDp4oaXZ1wZ2McbWCyfxPGg"
+}
+
+##2 POST:http://localhost:3000/api/auth/login
+Body(json){
+"email": "example@gmail.com",
+"password":"111111"
+}
+result:{
+"id": 17,
+"email": "example@gmail.com",
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImVtYWlsIjoiZXhhbXBsZUBnbWFpbC5jb20iLCJpYXQiOjE3MDIwNzY0ODEsImV4cCI6MTcwNDY2ODQ4MX0.7TuazovD5OCuTqfat7xqY1r8kB-IIl4J9KIacAaM9B4"
+}
+
+Приклад 1: Перегляд картинок
+Запустіть сервер за допомогою команди npm run start:dev.
+Відкрийте веб-браузер і перейдіть за посиланням http://localhost:3000.
+Ви побачите головну сторінку.
+Клацніть на Log in / Sign in, щоб зареєструватися та залогінитися.
+Потім перейдіть на сторінку Pictures натиснувши на кнопку яка зявиться після логіна для перегляду картинок.
+Приклад 2: Додавання коментарів
+Перейдіть до сторінки з конкретною картинкою.
+Використовуйте форму для додавання нового коментаря.
+Напишіть свій коментар та відправте його.
+Коментар з'явиться в розділі коментарів без перезавантаження сторінки.
+
+## Статус проекту
+
+**Розвиток**: Наразі проект знаходиться в стадії активної розробки. Відкриті до нових ідей та внесків.
