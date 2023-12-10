@@ -14,8 +14,8 @@ export class ImagesService {
 		private readonly imagesRepository: Repository<Image>,
 		@Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
 	) {}
-	create(createImageDto: CreateImageDto) {
-		return 'This action adds a new image'
+	async create(createImageDto: CreateImageDto) {
+		return await this.imagesRepository.save(createImageDto)
 	}
 	async clearCache() {
 		await this.cacheManager.reset()

@@ -1,1 +1,7 @@
-export class CreateImageDto {}
+export class CreateImageDto {
+	largeImageURL: string
+
+	webformatURL: string
+
+	tags: string
+}
