@@ -46,6 +46,7 @@ export class ImagesService {
 	}
 
 	remove(id: number) {
-		return `This action removes a #${id} image`
+		this.clearCache()
+		return this.imagesRepository.delete(id)
 	}
 }
